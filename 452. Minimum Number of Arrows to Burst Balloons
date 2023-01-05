@@ -1,0 +1,19 @@
+class Solution {
+public:
+
+    bool static comparator(vector<int>&vec1, vector<int>&vec2){
+        return vec1[1] < vec2[1];
+    }
+    int findMinArrowShots(vector<vector<int>>& points) {
+        sort(points.begin(), points.end(), comparator);
+        int end = points[0][1];
+        int noOfArrow = 1;
+        for(int i = 1; i < points.size(); i++){
+            if(points[i][0] > end){
+                end = points[i][1];
+                noOfArrow += 1;
+            }    
+        }
+        return noOfArrow;
+    }
+};
