@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int>vec;
+        dfs(root, vec);
+        return vec;
+    }
+
+    void dfs(TreeNode* root, vector<int> &vec){
+        if(!root)
+            return;
+        vec.push_back(root->val);
+        dfs(root->left, vec);
+        dfs(root->right, vec);
+    }
+
+};
