@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int ans = 1;
+    
+    int longestPath(vector<int>& parent, string s) {
+        vector<int>parentVal(parent.size(), 1);
+        vector<vector<int>>adj(parent.size());
+        for(int i = 1; i < parent.size(); i++){
+            adj[parent[i]].push_back(i);
+        }
+        dfs(adj, s, 0, parentVal);
+        return ans;
+    }
+    
+    void dfs(vector<vector<int>> &adj, string &s, int currentParent, vector<int> &parentVal){
+        for(auto child : adj[currentParent]){
+            dfs(adj, s, child, parentVal);
+            if(s[child] != s[currentParent]){
+                ans = max(ans, parentVal[currentParent] + parentVal[child]);
+                parentVal[currentParent] = max(parentVal[currentParent], parentVal[child] + 1);
+            }
+        }
+        return;
+    }
+
+};
