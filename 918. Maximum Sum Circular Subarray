@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int maxSubarraySumCircular(vector<int>& nums) {
+        int maxFromKadane = kadane(nums);
+        int sum = 0;
+        for(int i = 0; i < nums.size(); i++){
+            sum += nums[i];
+            nums[i] = -1*nums[i];
+        }
+        int maxAfterNegative = kadane(nums);
+        return (sum + maxAfterNegative == 0) ?  maxFromKadane : max(sum + maxAfterNegative, maxFromKadane);
+    }
+    
+    int kadane(vector<int> &nums){
+        int sum = 0;
+        int maxVal = nums[0];
+        for(auto num : nums){
+            sum += num;
+            if(sum > maxVal)
+                maxVal = max(maxVal, sum);
+            if(sum < 0)
+                sum = 0;    
+        }
+        return maxVal;
+    }
+};
