@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void nds(vector<int> &nums, vector<int> &curr, int idx, vector<vector<int>> &result) {
+        
+        if(curr.size() >= 2) 
+            result.push_back(curr);
+        
+        unordered_set<int>set;
+        for(int i = idx; i < nums.size(); i++){
+            if((curr.empty() || nums[i] >= curr.back()) && set.find(nums[i]) == set.end()){
+                curr.push_back(nums[i]);
+                nds(nums, curr, i + 1, result);
+                curr.pop_back();
+                set.insert(nums[i]);
+            }
+        }
+    }
+    vector<vector<int>> findSubsequences(vector<int>& nums) {
+        vector<vector<int>>result;
+        vector<int>curr;
+        nds(nums, curr, 0, result);
+        return result;
+    }  
+};
