@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int findJudge(int n, vector<vector<int>>& trust) {
+        vector<int>indegree(n+1, 0);
+        vector<int>outdegree(n+1, 0);
+
+        for(auto currentTrust : trust){
+            outdegree[currentTrust[0]] += 1;
+            indegree[currentTrust[1]] += 1;
+        }
+        
+        // if any person is town judge then all person except him trust (indegree =  n-1) and he trust nobody (outdegree = 0)
+        for(int i = 1; i <= n; i++){
+            if(outdegree[i] == 0 && indegree[i] == n-1)
+                return i;
+        }
+        return -1;
+    }
+};
